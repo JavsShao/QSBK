@@ -1,6 +1,7 @@
 import requests
 from urllib.parse import urlencode
 from pyquery import PyQuery
+from lxml import etree
 
 
 url = 'http://www.qiushibaike.com/8hr/page/1'
@@ -10,7 +11,19 @@ headers = {
 
 
 def parse_page(res_html):
+    '''
+    解析源码
+    :param res_html:
+    :return:
+    '''
     print('我在解析源码！')
+    html = etree.HTML(res_html)
+    result = html.xpath('//div[@class="recommend-article"]')
+    print(result)
+    for site in result:
+        item = {}
+        username = site.xpath('./ul/li[@class="item typs_video"]')
+
 
 
 def get_page():
